@@ -8,7 +8,15 @@
 
 PImage kingdom, lost, you;
 float zx1, zx2, zy1, zy2, px1, px2, py1, py2, cc, bX, bY, bW, bH, cY, cX, bR;
-int lives, score;
+int timer, lives;
+boolean isle;
+/* @pjs preload="background2.jpeg"; */
+/* @pjs preload="lost.jpeg"; */
+/* @pjs preload="You.png"; */
+
+
+
+
 
 void setup(){
   kingdom = loadImage("background2.jpeg");
@@ -35,7 +43,8 @@ textAlign(CENTER);
 cX= bX;
 cY= bY;
 bR = 20;
-score = 0;
+timer = 0;
+isle = true;
 }
 
 void draw(){
@@ -44,11 +53,15 @@ void draw(){
    zx1 = random(1919, 1920);
    zy1 = random(0, 1015);
   }
+  if(timer >= 0 && isle == true){
+    timer = timer + 1;
+  }
+  
      bX = bX + 10;
   background(kingdom);
   fill(0);
   textSize(100);
-  text(lives, width/24, height/4);
+  text(lives, width/27, height/4);
   fill(#315F2F);
   zx1 = zx1 - 15;
   rect(zx1, zy1, zx2, zy2);
@@ -80,9 +93,11 @@ void draw(){
      background(lost);
    fill(250, 0, 0);
    image(you, width/3, height/2);
+   text(timer, 1100, 565);
+   isle = false;
  }
  fill(0);
- text(score, width/15, height/12);
+ text(timer, width/15, height/12);
 }
 
 void keyPressed(){
@@ -99,16 +114,14 @@ boolean circleRect(float cx, float cy, float radius, float rx, float ry, float r
 
   if (cx < rx){
     testX = rx;
-
   }
   else if (cx > rx+rw){ 
   testX = rx+rw;
-  
+   
   }
   
   if (cy < ry){        
     testY = ry;
-
   }
   else if (cy > ry+rh){ 
     testY = ry+rh;
@@ -123,7 +136,6 @@ boolean circleRect(float cx, float cy, float radius, float rx, float ry, float r
   }
   return false;
 }
-
 
    // End of code
 
